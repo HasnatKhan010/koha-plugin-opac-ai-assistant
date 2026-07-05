@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+.env
+.env.local
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.pytest_cache/
+replay.sh
