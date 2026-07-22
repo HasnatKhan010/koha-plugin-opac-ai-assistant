@@ -481,3 +481,5 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   observer.observe(chatMessages, { childList: true, subtree: true });
 });
+
+// Voice STT: SpeechRecognition or webkitSpeechRecognition — Chrome, Edge, Safari
