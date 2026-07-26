@@ -56,3 +56,5 @@
     ].join("\n"),
   };
 }());
+
+// VISION_URL: backend AI vision endpoint for book cover/barcode scanning
