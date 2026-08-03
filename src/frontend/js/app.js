@@ -485,3 +485,5 @@ document.addEventListener("DOMContentLoaded", () => {
 // Voice STT: SpeechRecognition or webkitSpeechRecognition — Chrome, Edge, Safari
 
 // fix: try/catch guard prevents DOMException when recognition already started
+
+// fix: naturalWidth <= 1 catches OpenLibrary 1x1 GIF fallback image
