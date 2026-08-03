@@ -487,3 +487,5 @@ document.addEventListener("DOMContentLoaded", () => {
 // fix: try/catch guard prevents DOMException when recognition already started
 
 // fix: naturalWidth <= 1 catches OpenLibrary 1x1 GIF fallback image
+
+// perf: async puter.js script tag prevents render-blocking on OPAC page load
