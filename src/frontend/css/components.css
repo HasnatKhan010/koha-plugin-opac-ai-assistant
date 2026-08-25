@@ -1,0 +1,661 @@
+/* =========================================================
+   KOHA OPAC ASSISTANT — REUSABLE COMPONENTS
+   All class-based, reusable UI pieces.
+   No ID selectors. No widget-shell layout.
+========================================================= */
+
+/* --koha-chat------ MESSAGES --koha-chat------ */
+
+#koha-chat-window .message {
+  display: flex;
+  margin-top: 16px;
+  animation: fadeMessage 0.2s ease-out both;
+}
+
+#koha-chat-window .message:first-child {
+  margin-top: 0;
+}
+
+#koha-chat-window .message.user {
+  justify-content: flex-end;
+}
+
+#koha-chat-window .message.bot {
+  justify-content: flex-start;
+}
+
+#koha-chat-window .bubble {
+  max-width: 82%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: 13.5px;
+  line-height: 1.65;
+  word-break: break-word;
+}
+
+/* User bubble — vibrant gradient, white text */
+#koha-chat-window .user .bubble {
+  background: var(--koha-chat-gradient);
+  color: #FFFFFF;
+  border-bottom-right-radius: 4px;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+  border: none;
+}
+
+/* Bot bubble — frosted glass, dark text */
+#koha-chat-window .bot .bubble {
+  background: var(--koha-chat-glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--koha-chat-glass-border);
+  color: var(--koha-chat-text);
+  border-bottom-left-radius: 4px;
+  box-shadow: var(--koha-chat-shadow-sm);
+}
+
+#koha-chat-window .message-time {
+  margin-top: 5px;
+  font-size: 10.5px;
+  color: var(--koha-chat-text-muted);
+}
+
+#koha-chat-window .user .message-time {
+  color: rgba(255, 255, 255, 0.55);
+  text-align: right;
+}
+
+#koha-chat-window .speaker-btn {
+  background: none;
+  border: none;
+  color: var(--koha-chat-text-muted);
+  cursor: pointer;
+  padding: 2px 4px;
+  margin-left: 6px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+#koha-chat-window .speaker-btn:hover {
+  background: var(--koha-chat-bg-subtle);
+  color: var(--koha-chat-primary);
+}
+
+#koha-chat-window .speaker-btn svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* --koha-chat------ BUBBLE CONTENT --koha-chat------ */
+
+#koha-chat-window .bubble h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--koha-chat-text);
+  margin-bottom: 10px;
+}
+
+#koha-chat-window .bubble a {
+  color: var(--koha-chat-primary);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+#koha-chat-window .bubble a:hover {
+  text-decoration: underline;
+}
+
+#koha-chat-window .bubble table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+#koha-chat-window .bubble td {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--koha-chat-border);
+  font-size: 13px;
+  color: var(--koha-chat-text);
+}
+
+#koha-chat-window .bubble pre {
+  background: var(--koha-chat-secondary);
+  color: #FFFFFF;
+  padding: 14px;
+  border-radius: 10px;
+  overflow: auto;
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+#koha-chat-window .bubble code {
+  font-family: var(--koha-chat-font-mono);
+  font-size: 12.5px;
+}
+
+/* --koha-chat------ WELCOME CARD --koha-chat------ */
+
+#koha-chat-window .welcome-card {
+  background: var(--koha-chat-glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--koha-chat-radius-xl);
+  padding: 20px 24px;
+  border: 1px solid var(--koha-chat-glass-border);
+  box-shadow: var(--koha-chat-shadow-lg);
+  animation: fadeIn 0.4s var(--koha-chat-transition) both;
+}
+
+#koha-chat-window .welcome-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--koha-chat-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+#koha-chat-window .welcome-icon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--koha-chat-primary);
+}
+
+#koha-chat-window .welcome-card h2 {
+  font-size: 17px;
+  font-weight: 650;
+  color: var(--koha-chat-text);
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+
+#koha-chat-window .welcome-card p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--koha-chat-text-secondary);
+  margin-bottom: 20px;
+}
+
+#koha-chat-window .welcome-section-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--koha-chat-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+#koha-chat-window .welcome-tips {
+  font-size: 12.5px;
+  color: var(--koha-chat-text-secondary);
+  line-height: 1.7;
+  padding: 12px 14px;
+  background: var(--koha-chat-bg-subtle);
+  border-radius: 10px;
+  margin-top: 16px;
+  border: 1px solid var(--koha-chat-border);
+}
+
+#koha-chat-window .welcome-tips strong {
+  color: var(--koha-chat-text);
+  font-weight: 600;
+}
+
+/* --koha-chat------ QUICK ACTIONS --koha-chat------ */
+
+#koha-chat-window .quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#koha-chat-window .quick-btn {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  margin: 0 !important;
+  width: auto !important;
+  border-radius: var(--koha-chat-radius-full);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--koha-chat-border-strong);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--koha-chat-text);
+  cursor: pointer;
+  transition: all var(--koha-chat-transition);
+  white-space: nowrap;
+}
+
+#koha-chat-window .quick-btn:hover {
+  background: var(--koha-chat-gradient);
+  color: #FFFFFF;
+  border-color: transparent;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--koha-chat-shadow-colored);
+}
+
+#koha-chat-window .quick-btn svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* --koha-chat------ BOOK CARDS --koha-chat------ */
+
+#koha-chat-window .books-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#koha-chat-window .book-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--koha-chat-border);
+  border-radius: var(--koha-chat-radius-xl);
+  padding: 18px;
+  transition: all var(--koha-chat-transition);
+  animation: fadeIn 0.4s var(--koha-chat-transition) both;
+}
+
+#koha-chat-window .book-card:hover {
+  background: #FFFFFF;
+  border-color: var(--koha-chat-border-strong);
+  box-shadow: var(--koha-chat-shadow-xl);
+  transform: translateY(-4px) scale(1.01);
+}
+
+#koha-chat-window .book-header {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+/* Book cover — 80×120 as requested */
+#koha-chat-window .book-cover {
+  position: relative;
+  width: 80px;
+  height: 120px;
+  border-radius: var(--koha-chat-radius-sm);
+  background-color: var(--koha-chat-bg-subtle);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2394A3B8'%3E%3Cpath d='M4 19v-14c0-1.1.9-2 2-2h12c1.1 0 2 .9 2 2v14c0 1.1-.9 2-2 2h-14v-2zm2-14v14h12v-14h-12zm4 2h6v2h-6v-2zm0 4h6v2h-6v-2zm0 4h4v2h-4v-2z'/%3E%3C/svg%3E");
+  background-size: 34px;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid var(--koha-chat-border);
+}
+
+#koha-chat-window .book-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+  z-index: 1;
+}
+
+#koha-chat-window .book-cover.has-loaded-img::after {
+  display: none;
+}
+
+#koha-chat-window .book-cover img {
+  opacity: 0;
+  transition: opacity 0.35s ease-in;
+  position: relative;
+  z-index: 2;
+  width: 80px;
+  height: 120px;
+  object-fit: cover;
+}
+
+#koha-chat-window .book-cover img.loaded {
+  opacity: 1;
+}
+
+#koha-chat-window .book-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#koha-chat-window .book-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--koha-chat-text);
+  line-height: 1.3;
+  margin-bottom: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  letter-spacing: -0.01em;
+}
+
+#koha-chat-window .book-author {
+  font-size: 12.5px;
+  color: var(--koha-chat-text-secondary);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+#koha-chat-window .book-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#koha-chat-window .meta-row {
+  display: flex;
+  align-items: center;
+  font-size: 11.5px;
+  line-height: 1.4;
+  gap: 4px;
+}
+
+#koha-chat-window .meta-row strong {
+  color: var(--koha-chat-text-muted);
+  font-weight: 600;
+  min-width: 60px;
+  flex-shrink: 0;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+#koha-chat-window .meta-row span {
+  color: var(--koha-chat-text-secondary);
+}
+
+/* --koha-chat------ STATUS BAR & BADGES --koha-chat------ */
+
+#koha-chat-window .status-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--koha-chat-border);
+}
+
+#koha-chat-window .badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+#koha-chat-window .badge.available,
+#koha-chat-window .badge[style*="background:#10B981"],
+#koha-chat-window .badge[style*="background: #10B981"] {
+  background: var(--koha-chat-success-bg) !important;
+  color: var(--koha-chat-success-text) !important;
+}
+
+#koha-chat-window .badge.unavailable,
+#koha-chat-window .badge.checked,
+#koha-chat-window .badge[style*="background:#EF4444"],
+#koha-chat-window .badge[style*="background: #EF4444"] {
+  background: var(--koha-chat-danger-bg) !important;
+  color: var(--koha-chat-danger-text) !important;
+}
+
+#koha-chat-window .badge.reserved {
+  background: var(--koha-chat-warning-bg);
+  color: var(--koha-chat-warning-text);
+}
+
+#koha-chat-window .copies-badge {
+  background: var(--koha-chat-bg-subtle) !important;
+  color: var(--koha-chat-text-secondary) !important;
+}
+
+/* --koha-chat------ TYPING INDICATOR --koha-chat------ */
+
+#koha-chat-window .typing {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 18px;
+}
+
+#koha-chat-window .typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--koha-chat-text-muted);
+  animation: typing 1.2s ease-in-out infinite;
+}
+
+#koha-chat-window .typing span:nth-child(2) { animation-delay: 0.15s; }
+#koha-chat-window .typing span:nth-child(3) { animation-delay: 0.30s; }
+
+/* --koha-chat------ LOADING SKELETON --koha-chat------ */
+
+#koha-chat-window .loading-card {
+  padding: 18px;
+  background: #FFFFFF;
+  border-radius: var(--koha-chat-radius-lg);
+  border: 1px solid var(--koha-chat-border);
+}
+
+#koha-chat-window .loading-line {
+  height: 10px;
+  border-radius: var(--koha-chat-radius-full);
+  background: linear-gradient(
+    90deg,
+    var(--koha-chat-bg-subtle) 25%,
+    var(--koha-chat-bg-inset)  50%,
+    var(--koha-chat-bg-subtle) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s linear infinite;
+  margin: 8px 0;
+}
+
+/* --koha-chat------ EMPTY STATE --koha-chat------ */
+
+#koha-chat-window .empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 20px;
+  text-align: center;
+}
+
+#koha-chat-window .empty-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: var(--koha-chat-bg-subtle);
+  border: 1px solid var(--koha-chat-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+#koha-chat-window .empty-icon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--koha-chat-text-muted);
+}
+
+#koha-chat-window .empty-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--koha-chat-text);
+}
+
+#koha-chat-window .empty-text {
+  font-size: 13px;
+  color: var(--koha-chat-text-secondary);
+  line-height: 1.6;
+  max-width: 240px;
+}
+
+/* --koha-chat------ SUGGESTIONS DROPDOWN --koha-chat------ */
+
+#koha-chat-window .suggestions-dropdown {
+  position: absolute;
+  bottom: 100%;
+  left: 16px;
+  right: 16px;
+  background: #FFFFFF;
+  border: 1px solid var(--koha-chat-border-strong);
+  border-radius: 12px;
+  box-shadow: var(--koha-chat-shadow-md);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  margin-bottom: 6px;
+  animation: scaleIn 0.15s ease-out;
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: translateY(6px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+
+#koha-chat-window .suggestion-item {
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--koha-chat-text);
+  border-bottom: 1px solid var(--koha-chat-border);
+  transition: background var(--koha-chat-transition-fast);
+}
+
+#koha-chat-window .suggestion-item:last-child {
+  border-bottom: none;
+}
+
+#koha-chat-window .suggestion-item:hover {
+  background: var(--koha-chat-primary-ghost);
+  color: var(--koha-chat-primary);
+}
+
+/* --koha-chat------ RESULT ACTIONS --koha-chat------ */
+
+#koha-chat-window .result-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+/* Primary button */
+#koha-chat-window .result-btn {
+  padding: 9px 16px;
+  border-radius: 10px;
+  background: var(--koha-chat-primary);
+  color: #FFFFFF;
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: background var(--koha-chat-transition-fast),
+              transform var(--koha-chat-transition-fast),
+              box-shadow var(--koha-chat-transition-fast);
+  cursor: pointer;
+  border: none;
+  letter-spacing: 0.01em;
+}
+
+#koha-chat-window .result-btn:hover {
+  background: var(--koha-chat-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.30);
+}
+
+#koha-chat-window .result-btn:active {
+  transform: scale(0.96);
+}
+
+/* Secondary button */
+#koha-chat-window .result-btn.secondary {
+  background: #FFFFFF;
+  color: var(--koha-chat-text);
+  border: 1.5px solid var(--koha-chat-border-strong);
+}
+
+#koha-chat-window .result-btn.secondary:hover {
+  background: var(--koha-chat-bg-subtle);
+  border-color: var(--koha-chat-text-muted);
+  box-shadow: var(--koha-chat-shadow-sm);
+}
+
+/* --koha-chat------ NOTIFICATIONS --koha-chat------ */
+
+#koha-chat-window .notification {
+  padding: 12px 14px;
+  border-radius: 10px;
+  margin: 12px 0;
+  font-size: 13px;
+  line-height: 1.5;
+  border: 1px solid transparent;
+}
+
+#koha-chat-window .notification.success {
+  background: var(--koha-chat-success-bg);
+  color: var(--koha-chat-success-text);
+  border-color: #BBF7D0;
+}
+
+#koha-chat-window .notification.warning {
+  background: var(--koha-chat-warning-bg);
+  color: var(--koha-chat-warning-text);
+  border-color: #FDE68A;
+}
+
+#koha-chat-window .notification.error {
+  background: var(--koha-chat-danger-bg);
+  color: var(--koha-chat-danger-text);
+  border-color: #FECACA;
+}
+
+/* --koha-chat------ DIVIDER --koha-chat------ */
+
+#koha-chat-window .divider,
+#koha-chat-window .book-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--koha-chat-border);
+  margin: 14px 0;
+}
+
+/* --koha-chat------ FOCUS STATES (WCAG AA) --koha-chat------ */
+
+#koha-chat-window button:focus-visible,
+#koha-chat-window input:focus-visible {
+  outline: 2px solid var(--koha-chat-primary);
+  outline-offset: 2px;
+  box-shadow: var(--koha-chat-shadow-glow);
+}
+
+/* --koha-chat------ UTILS --koha-chat------ */
+#koha-chat-window .gradient-text {
+  background: var(--koha-chat-gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

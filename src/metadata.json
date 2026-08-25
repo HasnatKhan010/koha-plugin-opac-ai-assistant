@@ -1,0 +1,11 @@
+{
+  "name": "OPAC AI Assistant",
+  "author": "Hasnat Khan",
+  "canonicalname": "Koha::Plugin::OPACChatBot",
+  "description": "AI-powered chatbot for Koha OPAC — search by title, author, ISBN, subject, and more",
+  "date_authored": "2026-07-05",
+  "date_updated": "2026-07-27",
+  "minimum_version": "26.05",
+  "maximum_version": null,
+  "version": "1.0.3"
+}

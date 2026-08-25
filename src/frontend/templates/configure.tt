@@ -1,0 +1,61 @@
+[% INCLUDE 'doc-head-open.inc' %]
+  <title>Koha: OPAC AI Assistant: Configuration</title>
+[% INCLUDE 'doc-head-close.inc' %]
+</head>
+<body>
+[% INCLUDE 'header.inc' %]
+[% INCLUDE 'cat-search.inc' %]
+
+<div id="breadcrumbs">
+  <a href="/cgi-bin/koha/mainpage.pl">Home</a>
+  &rsaquo; <a href="/cgi-bin/koha/plugins/plugins-home.pl">Plugins</a>
+  &rsaquo; OPAC AI Assistant &rsaquo; Configuration
+</div>
+
+<div id="doc3">
+  <h3>OPAC AI Assistant Configuration</h3>
+  <form method="get">
+    <input type="hidden" name="class" value="[% CLASS %]"/>
+    <input type="hidden" name="method" value="[% METHOD %]"/>
+
+    <div class="dialog message">
+      <h4>How to get your API Base URL</h4>
+      <p>This plugin requires a standalone Python FastAPI backend to process natural language searches.</p>
+      <ul>
+        <li>If you are running the backend on this server, start it using: <code>uvicorn main:app --host 127.0.0.1 --port 8000</code></li>
+        <li>Your API Base URL will then be: <strong>http://127.0.0.1:8000</strong></li>
+        <li>If you are hosting the backend on a remote server, enter the public IP or domain name (e.g. <code>https://chat.mylibrary.edu</code>).</li>
+      </ul>
+    </div>
+
+    <fieldset class="rows">
+      <legend>Backend Configuration</legend>
+      <ol>
+        <li>
+          <label for="api_base_url">API Base URL: </label>
+          <input id="api_base_url" type="text" name="api_base_url" value="[% api_base_url %]" size="50"/>
+          <div class="hint">The URL to the FastAPI backend. Default is <code>http://127.0.0.1:8000</code>. Do not include a trailing slash.</div>
+        </li>
+        <li>
+          <label for="plugin_enabled">Enable Chatbot Widget: </label>
+          <select id="plugin_enabled" name="plugin_enabled">
+            <option value="1" [% IF plugin_enabled == 1 %]selected="selected"[% END %]>Yes</option>
+            <option value="0" [% IF plugin_enabled == 0 %]selected="selected"[% END %]>No</option>
+          </select>
+        </li>
+        <li>
+          <label for="debug_mode">Debug Logging: </label>
+          <select id="debug_mode" name="debug_mode">
+            <option value="0" [% IF debug_mode == 0 %]selected="selected"[% END %]>Off</option>
+            <option value="1" [% IF debug_mode == 1 %]selected="selected"[% END %]>On</option>
+          </select>
+        </li>
+    <fieldset class="action">
+      <input type="hidden" name="save" value="1" />
+      <input type="submit" value="Save configuration" />
+      <a class="cancel" href="/cgi-bin/koha/plugins/plugins-home.pl">Cancel</a>
+    </fieldset>
+  </form>
+</div>
+
+[% INCLUDE 'intranet-bottom.inc' %]

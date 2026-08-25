@@ -1,0 +1,72 @@
+/* =========================================================
+   KOHA OPAC ASSISTANT — RESET & BASE THEME
+   Scoped entirely inside #koha-chat-window & #koha-chat-toggle.
+   Zero risk of bleeding into Koha's own styles.
+========================================================= */
+
+#koha-chat-window *,
+#koha-chat-window *::before,
+#koha-chat-window *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#koha-chat-window {
+  font-family: var(--koha-chat-font);
+  color: var(--koha-chat-text);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#koha-chat-window button {
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: none;
+  transition: var(--koha-chat-transition);
+}
+
+#koha-chat-window input {
+  font-family: inherit;
+  outline: none;
+}
+
+#koha-chat-window img {
+  display: block;
+  max-width: 100%;
+}
+
+#koha-chat-window a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ── Scrollbar (thin, gray, rounded) ── */
+
+#koha-chat-window ::-webkit-scrollbar {
+  width: 4px;
+}
+
+#koha-chat-window ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#koha-chat-window ::-webkit-scrollbar-thumb {
+  background: var(--koha-chat-border-strong);
+  border-radius: 100px;
+}
+
+#koha-chat-window ::-webkit-scrollbar-thumb:hover {
+  background: var(--koha-chat-text-muted);
+}
+
+/* ── Text selection ── */
+
+#koha-chat-window ::selection {
+  background: var(--koha-chat-primary);
+  color: #FFFFFF;
+}
