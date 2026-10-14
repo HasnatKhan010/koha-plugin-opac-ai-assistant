@@ -1,0 +1,271 @@
+/* =========================================================
+   KOHA OPAC ASSISTANT — DESIGN TOKENS
+   Single source of truth for all design values.
+   Scoped under #koha-chat-window & #koha-chat-toggle.
+
+   PALETTE INTENT
+   This sits inside somebody else's OPAC, so it should read as part of a
+   library catalogue rather than as a consumer chat app bolted on top. The
+   previous palette was a saturated indigo/violet gradient applied to almost
+   every surface; it fought whatever theme the library had chosen and made the
+   widget the loudest thing on the page. This one keeps a single calm slate-blue
+   as the brand colour, uses gradients only on the toggle button and the header,
+   and leaves every content surface flat so text is the thing you notice.
+
+   CONTRAST
+   Every foreground/background pair used for text meets WCAG 2.1 AA (4.5:1 for
+   normal text, 3:1 for large text and UI boundaries). The ratios are noted
+   inline. This matters more than usual here: OPACs are public services and many
+   libraries are under a legal accessibility obligation (WCAG 2.1 AA is the
+   referenced standard in EN 301 549 and in Section 508).
+
+   NOTE: no @import of a web font here, deliberately.
+   Fetching fonts.googleapis.com from every OPAC page sends every visitor's
+   IP to a third party, which a German court has held to be a GDPR breach
+   (LG Munchen I, 3 O 17493/20), is blocked by any strict Content Security
+   Policy, and simply hangs on the LAN-only installs many libraries run.
+   --koha-chat-font names 'Outfit' first so it is used where a library has
+   installed it, and falls back to the operating system UI font otherwise.
+========================================================= */
+
+:root {
+  /* ── Brand ──
+     Slate-blue, not indigo. Reads as institutional rather than promotional and
+     sits beside Koha's own default blues without clashing.
+     --koha-chat-primary on white  = 5.9:1  (AA for normal text)
+     white on --koha-chat-primary  = 5.9:1  (button labels pass) */
+  --koha-chat-primary:          #2A5C8A;
+  --koha-chat-primary-hover:    #1F4870;
+  --koha-chat-primary-dark:     #16324E;
+  --koha-chat-primary-light:    #EDF3F9;   /* tinted surface */
+  --koha-chat-primary-ghost:    #DBE7F2;   /* hover on tinted surface */
+
+  /* Gradients are now deliberately scarce: the toggle button, the header, and
+     the send button. Everything else is flat. */
+  --koha-chat-gradient:         linear-gradient(140deg, #2A5C8A 0%, #1F4870 100%);
+  --koha-chat-gradient-hover:   linear-gradient(140deg, #1F4870 0%, #16324E 100%);
+  /* Used for the one accent word in the welcome heading. Both stops are dark
+     enough that the text is legible even where background-clip:text is
+     unsupported and the fallback colour shows through. */
+  --koha-chat-gradient-text:    linear-gradient(120deg, #2A5C8A 0%, #1F4870 100%);
+
+  /* ── Surfaces ──
+     Near-white rather than pure white so the card borders and the OPAC page
+     behind stay distinguishable without heavy shadows.
+
+     The --koha-chat-glass-* tokens are gone: every surface that used them paired
+     a translucent background with backdrop-filter: blur(), which took its colour
+     from whatever the library's OPAC theme sat behind it (so the same card
+     rendered differently per install) and cost a blur repaint per scroll frame
+     on the 420x680 panel, each bubble, and every one of up to 20 result cards. */
+  --koha-chat-secondary:        #16324E;   /* header; white on this = 11.6:1 */
+  --koha-chat-bg:               #FBFCFD;
+  --koha-chat-bg-elevated:      #FFFFFF;   /* cards, bubbles, input */
+  --koha-chat-bg-subtle:        #F2F5F8;   /* inset areas */
+  --koha-chat-bg-inset:         #E4EAF0;   /* deeper inset */
+
+  /* ── Text ──
+     on --koha-chat-bg-elevated (#FFFFFF):
+       text            #17212E  = 14.8:1
+       text-secondary  #3D4A5C  =  8.9:1
+       text-muted      #5B6878  =  5.4:1   (was #64748B at 4.8:1 — thin at 10.5px)
+       text-inverse    #FFFFFF on primary/secondary = 5.9:1 / 11.6:1 */
+  --koha-chat-text:             #17212E;
+  --koha-chat-text-secondary:   #3D4A5C;
+  --koha-chat-text-muted:       #5B6878;
+  --koha-chat-text-inverse:     #FFFFFF;
+
+  /* ── Borders ──
+     Opaque, not translucent. A translucent border over the OPAC's own
+     background rendered a different colour on every library's theme, which is
+     why card edges looked inconsistent. */
+  --koha-chat-border:           #DFE5EC;
+  --koha-chat-border-strong:    #C3CDD8;
+
+  /* ── Status colours ──
+     Tinted background + dark text, never white-on-saturated. The old badge was
+     white on #10B981 = 2.5:1, which failed AA outright and was the single least
+     readable thing in the widget.
+       success-text on success-bg  = 5.1:1
+       danger-text  on danger-bg   = 6.4:1
+       warning-text on warning-bg  = 7.4:1
+       neutral-text on neutral-bg  = 7.6:1
+     The solid --koha-chat-success / -danger remain for dots and rules, which are
+     non-text and need only 3:1. */
+  --koha-chat-success:          #0F7B57;
+  --koha-chat-success-bg:       #E3F5EC;
+  --koha-chat-success-text:     #0B5F43;
+  --koha-chat-danger:           #C0392B;
+  --koha-chat-danger-bg:        #FCEAE8;
+  --koha-chat-danger-text:      #96271B;
+  --koha-chat-warning-bg:       #FCF1DC;
+  --koha-chat-warning-text:     #7A4E10;
+  --koha-chat-neutral-bg:       #EDF0F3;
+  --koha-chat-neutral-text:     #44505F;
+
+  /* ── Radius ──
+     Pulled in from 12–24px. The old radii were large enough that the widget
+     read as a phone app; these still look current but let the card edges line
+     up with the OPAC's own boxes. */
+  --koha-chat-radius-sm:        6px;
+  --koha-chat-radius:           10px;
+  --koha-chat-radius-lg:        12px;
+  --koha-chat-radius-xl:        14px;
+  --koha-chat-radius-full:      9999px;
+
+  /* ── Shadows ──
+     Tighter and less diffuse. The 60px-blur shadow read as a grey haze on the
+     light-grey background most OPAC themes use. */
+  --koha-chat-shadow-sm:        0 1px 2px rgba(23, 33, 46, .06);
+  --koha-chat-shadow-md:        0 2px 6px rgba(23, 33, 46, .07), 0 1px 2px rgba(23, 33, 46, .04);
+  --koha-chat-shadow-lg:        0 6px 16px rgba(23, 33, 46, .09), 0 2px 4px rgba(23, 33, 46, .05);
+  --koha-chat-shadow-xl:        0 12px 32px rgba(23, 33, 46, .13), 0 4px 8px rgba(23, 33, 46, .06);
+  --koha-chat-shadow-glow:      0 0 0 3px rgba(42, 92, 138, .28);  /* focus ring */
+  --koha-chat-shadow-colored:   0 4px 14px rgba(22, 50, 78, .28);
+
+  /* ── Transitions ──
+     The default is no longer a spring. cubic-bezier(0.34, 1.56, 0.64, 1)
+     overshoots past 1, so every hover on a card visibly bounced — fine on one
+     element, distracting applied to all of them. The spring is kept as an
+     explicit token for the toggle button, which benefits from it. */
+  --koha-chat-transition:       200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --koha-chat-transition-fast:  120ms cubic-bezier(0.4, 0, 0.2, 1);
+  --koha-chat-transition-smooth: 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  --koha-chat-transition-spring: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ── Typography ── */
+  --koha-chat-font:             'Outfit', system-ui, -apple-system, sans-serif;
+  --koha-chat-font-mono:        'JetBrains Mono', 'Fira Code', monospace;
+
+  /* ── Component sizes ── */
+  --koha-chat-toggle-size:      60px;
+  --koha-chat-header-height:    72px;
+  --koha-chat-input-height:     50px;
+}
+
+/* =========================================================
+   DARK MODE
+   Token overrides only — no component rule is duplicated, so the two themes
+   cannot drift apart.
+
+   Gated on the OS/browser preference rather than on a setting of ours: a patron
+   who has asked their system for dark UI has asked once, and a library should
+   not have to configure it. Contrast is re-verified against the dark surfaces
+   below, since a palette that passes on white routinely fails when inverted.
+========================================================= */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Lighter, desaturated brand — #2A5C8A on a dark surface is far too dim.
+       --koha-chat-primary on --koha-chat-bg-elevated = 6.8:1 */
+    --koha-chat-primary:        #7FB4E3;
+    --koha-chat-primary-hover:  #9CC8EE;
+    --koha-chat-primary-dark:   #5E97CB;
+    --koha-chat-primary-light:  #1B2A3A;
+    --koha-chat-primary-ghost:  #24384C;
+
+    /* Buttons keep a dark label on the light brand fill: #17212E on #7FB4E3
+       is 6.8:1, where white on it would be only 2.2:1. */
+    --koha-chat-gradient:       linear-gradient(140deg, #7FB4E3 0%, #5E97CB 100%);
+    --koha-chat-gradient-hover: linear-gradient(140deg, #9CC8EE 0%, #7FB4E3 100%);
+    --koha-chat-gradient-text:  linear-gradient(120deg, #9CC8EE 0%, #7FB4E3 100%);
+
+    --koha-chat-secondary:      #131B26;
+    --koha-chat-bg:             #0E141C;
+    --koha-chat-bg-elevated:    #172029;   /* cards, bubbles, input */
+    --koha-chat-bg-subtle:      #1E2833;
+    --koha-chat-bg-inset:       #263241;
+
+    /* on --koha-chat-bg-elevated (#172029):
+         text            #E8EDF3 = 13.6:1
+         text-secondary  #B4C0CE =  8.4:1
+         text-muted      #8D9AAA =  5.2:1
+       Pure white is avoided as body text: on a near-black surface it haloes. */
+    --koha-chat-text:           #E8EDF3;
+    --koha-chat-text-secondary: #B4C0CE;
+    --koha-chat-text-muted:     #8D9AAA;
+    --koha-chat-text-inverse:   #10161E;   /* sits ON the light brand fill */
+
+    --koha-chat-border:         #2A3542;
+    --koha-chat-border-strong:  #3C4A5A;
+
+    /* Dark tinted chips. Ratios against their own backgrounds:
+         success 7.9:1   danger 7.1:1   warning 8.3:1   neutral 8.6:1 */
+    --koha-chat-success:        #45C79A;
+    --koha-chat-success-bg:     #10322A;
+    --koha-chat-success-text:   #6FDCB4;
+    --koha-chat-danger:         #F08579;
+    --koha-chat-danger-bg:      #37191A;
+    --koha-chat-danger-text:    #F5A79D;
+    --koha-chat-warning-bg:     #33270F;
+    --koha-chat-warning-text:   #E9BE72;
+    --koha-chat-neutral-bg:     #232D39;
+    --koha-chat-neutral-text:   #B7C2CF;
+
+    /* Shadows barely register on dark surfaces; borders do the separating, so
+       these are strengthened only enough to lift the window off the page. */
+    --koha-chat-shadow-sm:      0 1px 2px rgba(0, 0, 0, .34);
+    --koha-chat-shadow-md:      0 2px 6px rgba(0, 0, 0, .40);
+    --koha-chat-shadow-lg:      0 6px 16px rgba(0, 0, 0, .48);
+    --koha-chat-shadow-xl:      0 12px 32px rgba(0, 0, 0, .58);
+    --koha-chat-shadow-glow:    0 0 0 3px rgba(127, 180, 227, .40);
+    --koha-chat-shadow-colored: 0 4px 14px rgba(0, 0, 0, .50);
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   animations.css defines ten keyframe animations, several of them infinite
+   (shimmer on every cover placeholder, a pulsing status dot, the typing dots).
+   Continuous motion is a documented migraine and vestibular-disorder trigger,
+   and WCAG 2.1 SC 2.3.3 asks that non-essential motion be removable.
+
+   Rather than disable animation globally with `* { animation: none }` — which
+   would freeze the typing indicator mid-frame and leave shimmer overlays
+   permanently visible — each animation is collapsed to a resolved end state.
+   The widget still works; it just does not move.
+========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --koha-chat-transition:        1ms linear;
+    --koha-chat-transition-fast:   1ms linear;
+    --koha-chat-transition-smooth: 1ms linear;
+    --koha-chat-transition-spring: 1ms linear;
+  }
+
+  #koha-chat-window,
+  #koha-chat-window *,
+  #koha-chat-toggle,
+  #koha-chat-toggle * {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Entrance animations use `both`, so a 1ms run still applies the final
+     frame — elements land visible rather than stuck at opacity 0. Stated
+     explicitly so a future edit to animations.css cannot hide content here. */
+  #koha-chat-window .book-card,
+  #koha-chat-window .message,
+  #koha-chat-window .welcome-card {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* The shimmer sweep is decorative and reads as a permanent white bar once
+     frozen; remove the overlay outright. */
+  #koha-chat-window .book-cover::after,
+  #koha-chat-window .loading-line {
+    animation: none !important;
+    background: none !important;
+  }
+
+  /* Hover lift and scale removed: with transitions at 1ms these snap, which is
+     more jarring than not moving at all. */
+  #koha-chat-window .book-card:hover,
+  #koha-chat-window .quick-btn:hover,
+  #koha-chat-window .result-btn:hover,
+  #koha-chat-toggle:hover {
+    transform: none !important;
+  }
+}

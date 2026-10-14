@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" role="img" aria-labelledby="title">
+  <title id="title">Sadi library assistant</title>
+  <defs>
+    <linearGradient id="base" x1="8" y1="9" x2="88" y2="91" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#17476D"/>
+      <stop offset=".52" stop-color="#0A6387"/>
+      <stop offset="1" stop-color="#0B3558"/>
+    </linearGradient>
+    <linearGradient id="page" x1="22" y1="36" x2="72" y2="70" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#D6F4FF"/>
+    </linearGradient>
+    <linearGradient id="spark" x1="62" y1="11" x2="80" y2="33" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF1B7"/>
+      <stop offset="1" stop-color="#71E6F4"/>
+    </linearGradient>
+  </defs>
+  <rect x="3" y="3" width="90" height="90" rx="25" fill="url(#base)"/>
+  <rect x="4" y="4" width="88" height="88" rx="24" fill="none" stroke="#B8EAFA" stroke-opacity=".32" stroke-width="2"/>
+  <path d="M18 35.5c11-4.8 20-3.8 30 2.5v34c-10-6.3-19-7.3-30-2.5v-34Z" fill="url(#page)"/>
+  <path d="M78 35.5C67 30.7 58 31.7 48 38v34c10-6.3 19-7.3 30-2.5v-34Z" fill="url(#page)"/>
+  <path d="M48 38v34" stroke="#12617E" stroke-opacity=".58" stroke-width="2.5"/>
+  <path d="M24 44c6-1.5 11-.9 17 1.9M24 52c6-1.5 11-.9 17 1.9M24 60c6-1.5 11-.9 17 1.9" fill="none" stroke="#2F8DAC" stroke-width="2.5" stroke-linecap="round" opacity=".75"/>
+  <path d="M55 47c5-2.4 10-3.1 16-2M55 55c5-2.4 10-3.1 16-2M55 63c5-2.4 10-3.1 16-2" fill="none" stroke="#2F8DAC" stroke-width="2.5" stroke-linecap="round" opacity=".75"/>
+  <path d="M15 73c12-5.8 23-5.1 33 1.8 10-6.9 21-7.6 33-1.8" fill="none" stroke="#74D8E9" stroke-width="3" stroke-linecap="round"/>
+  <path d="M70 12.5 73.5 22 83 25.5 73.5 29 70 38.5 66.5 29 57 25.5 66.5 22 70 12.5Z" fill="url(#spark)" stroke="#0B5577" stroke-width="2" stroke-linejoin="round"/>
+</svg>

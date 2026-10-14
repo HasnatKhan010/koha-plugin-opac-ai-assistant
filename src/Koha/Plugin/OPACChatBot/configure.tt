@@ -1,0 +1,179 @@
+[% INCLUDE 'doc-head-open.inc' %]
+  <title>Koha: OPAC AI Assistant: Configuration</title>
+[% INCLUDE 'doc-head-close.inc' %]
+</head>
+<body>
+[% INCLUDE 'header.inc' %]
+[% INCLUDE 'cat-search.inc' %]
+
+<div id="breadcrumbs">
+  <a href="/cgi-bin/koha/mainpage.pl">Home</a>
+  &rsaquo; <a href="/cgi-bin/koha/plugins/plugins-home.pl">Plugins</a>
+  &rsaquo; OPAC AI Assistant &rsaquo; Configuration
+</div>
+
+<div id="doc3">
+  <h3>OPAC AI Assistant &mdash; Configuration</h3>
+
+  <div class="dialog message">
+    <h4>Before you start (one-time Koha setup)</h4>
+    <p>This plugin serves its own API inside Koha &mdash; <strong>no separate server is
+       required</strong>, and <strong>no system preferences need changing</strong>. Plugin routes
+       under <code>/api/v1/contrib/</code> are reachable by logged-out OPAC visitors as soon as
+       plugins are enabled.</p>
+    <p>The only requirement is that your system administrator has set
+       <code>&lt;enable_plugins&gt;1&lt;/enable_plugins&gt;</code> in <code>koha-conf.xml</code>
+       &mdash; which must already be true, or you could not be reading this page.</p>
+    <p>Then paste your LLM API key below and set your library details. That's it.</p>
+  </div>
+
+  [% IF encryption_available == 0 %]
+  <div class="dialog alert">
+    <strong>Note:</strong> Koha's encryption key is not configured
+    (<code>&lt;encryption_key&gt;</code> in <code>koha-conf.xml</code>). Your API key will still
+    be saved, but <em>without at-rest encryption</em>. Ask your system administrator to set an
+    encryption key for full security.
+  </div>
+  [% END %]
+
+  <form method="post">
+    <input type="hidden" name="class" value="[% CLASS %]"/>
+    <input type="hidden" name="method" value="[% METHOD %]"/>
+    <input type="hidden" name="save" value="1" />
+    <input type="hidden" name="csrf_token" value="[% csrf_token | html %]" />
+
+    <fieldset class="rows">
+      <legend>AI Provider</legend>
+      <ol>
+        <li>
+          <label for="llm_provider">LLM provider:</label>
+          <select id="llm_provider" name="llm_provider">
+            <option value="groq"   [% IF llm_provider == 'groq'   %]selected="selected"[% END %]>Groq (fast, free tier) &mdash; recommended</option>
+            <option value="gemini" [% IF llm_provider == 'gemini' %]selected="selected"[% END %]>Google Gemini</option>
+            <option value="openai" [% IF llm_provider == 'openai' %]selected="selected"[% END %]>OpenAI</option>
+          </select>
+          <div class="hint">Choose which AI service to use. All three use an OpenAI-compatible API.</div>
+        </li>
+        <li>
+          <label for="llm_model">Model:</label>
+          <input id="llm_model" type="text" name="llm_model" value="[% llm_model | html %]" size="40"/>
+          <div class="hint">Leave blank to use the provider default
+            (Groq: <code>openai/gpt-oss-20b</code>, Gemini: <code>gemini-3.5-flash-lite</code>,
+            OpenAI: <code>gpt-4o-mini</code>).</div>
+        </li>
+        <li>
+          <label for="api_key">API key:</label>
+          <input id="api_key" type="password" name="api_key" value="" size="50"
+                 autocomplete="new-password"
+                 placeholder="[% IF api_key_set == '1' %]•••••••••• (a key is saved — leave blank to keep it)[% ELSE %]paste your API key here[% END %]"/>
+          <div class="hint">
+            [% IF api_key_set == '1' %]
+              A key is already saved (stored encrypted, never shown here). Paste a new key only if
+              you want to replace it; leave blank to keep the current one.
+            [% ELSE %]
+              Paste your provider API key. It is stored encrypted and is never sent back to the
+              browser or exposed on the OPAC.
+            [% END %]
+          </div>
+        </li>
+      </ol>
+    </fieldset>
+
+    <fieldset class="rows">
+      <legend>Widget</legend>
+      <ol>
+        <li>
+          <label for="plugin_enabled">Enable chatbot widget:</label>
+          <select id="plugin_enabled" name="plugin_enabled">
+            <option value="1" [% IF plugin_enabled == 1 %]selected="selected"[% END %]>Yes</option>
+            <option value="0" [% IF plugin_enabled == 0 %]selected="selected"[% END %]>No</option>
+          </select>
+        </li>
+        <li>
+          <label for="debug_mode">Debug logging (browser console):</label>
+          <select id="debug_mode" name="debug_mode">
+            <option value="0" [% IF debug_mode == 0 %]selected="selected"[% END %]>Off</option>
+            <option value="1" [% IF debug_mode == 1 %]selected="selected"[% END %]>On</option>
+          </select>
+        </li>
+        <li>
+          <label for="opac_base_url">OPAC base URL (optional):</label>
+          <input id="opac_base_url" type="text" name="opac_base_url" value="[% opac_base_url | html %]" size="50"/>
+          <div class="hint">Leave blank to use relative links (recommended). Set only if your OPAC
+            is served from a different host than where result links should point.</div>
+        </li>
+        <li>
+          <label for="asset_delivery">Stylesheet / script delivery:</label>
+          <select id="asset_delivery" name="asset_delivery">
+            <option value="auto"   [% IF asset_delivery == 'auto'   %]selected="selected"[% END %]>Cached files (recommended)</option>
+            <option value="inline" [% IF asset_delivery == 'inline' %]selected="selected"[% END %]>Inline in every page</option>
+          </select>
+          <div class="hint">
+            &ldquo;Cached files&rdquo; serves the CSS and JavaScript from
+            <code>/api/v1/contrib/opacchatbot/asset/</code> so the browser caches them once
+            instead of re-downloading roughly 70&nbsp;KB with every OPAC page. It falls back to
+            inlining automatically if this Koha cannot serve plugin static files.
+            Currently in use: <strong>[% IF bundles_in_use %]cached files[% ELSE %]inline[% END %]</strong>.
+          </div>
+        </li>
+        <li>
+          <label for="enable_image_scan">Photo search:</label>
+          <select id="enable_image_scan" name="enable_image_scan">
+            <option value="1" [% IF enable_image_scan == 1 %]selected="selected"[% END %]>On</option>
+            <option value="0" [% IF enable_image_scan == 0 %]selected="selected"[% END %]>Off</option>
+          </select>
+          <div class="hint">
+            Barcodes and English cover text are read in the patron's browser with code packaged in
+            this plugin. OCR files load only when someone selects a photo. Images are not uploaded
+            to an AI provider. Voice input uses the browser's speech service where supported;
+            some browsers send audio to their own speech provider.
+          </div>
+        </li>
+      </ol>
+    </fieldset>
+
+    <fieldset class="rows">
+      <legend>Library branding &amp; info</legend>
+      <ol>
+        <li>
+          <label for="library_name">Library / assistant name:</label>
+          <input id="library_name" type="text" name="library_name" value="[% library_name | html %]" size="50"/>
+          <div class="hint">Shown in the chat header and welcome message.</div>
+        </li>
+        <li>
+          <label for="logo_url">Logo URL (optional):</label>
+          <input id="logo_url" type="text" name="logo_url" value="[% logo_url | html %]" size="50"/>
+          <div class="hint">Full URL to a logo image. Leave blank to use the built-in icon.</div>
+        </li>
+        <li>
+          <label for="info_hours">Opening hours (HTML allowed):</label>
+          <textarea id="info_hours" name="info_hours" rows="3" cols="60">[% info_hours | html %]</textarea>
+          <div class="hint">Answered when a patron asks about hours/timings. Leave blank for a generic reply.</div>
+        </li>
+        <li>
+          <label for="info_membership">Membership info (HTML allowed):</label>
+          <textarea id="info_membership" name="info_membership" rows="3" cols="60">[% info_membership | html %]</textarea>
+        </li>
+        <li>
+          <label for="info_borrowing">Borrowing / loan rules (HTML allowed):</label>
+          <textarea id="info_borrowing" name="info_borrowing" rows="3" cols="60">[% info_borrowing | html %]</textarea>
+        </li>
+        <li>
+          <label for="info_rules">General rules (HTML allowed):</label>
+          <textarea id="info_rules" name="info_rules" rows="3" cols="60">[% info_rules | html %]</textarea>
+        </li>
+        <li>
+          <label for="info_contact">Contact info (HTML allowed):</label>
+          <textarea id="info_contact" name="info_contact" rows="3" cols="60">[% info_contact | html %]</textarea>
+        </li>
+      </ol>
+    </fieldset>
+
+    <fieldset class="action">
+      <input type="submit" value="Save configuration" />
+      <a class="cancel" href="/cgi-bin/koha/plugins/plugins-home.pl">Cancel</a>
+    </fieldset>
+  </form>
+</div>
+
+[% INCLUDE 'intranet-bottom.inc' %]
