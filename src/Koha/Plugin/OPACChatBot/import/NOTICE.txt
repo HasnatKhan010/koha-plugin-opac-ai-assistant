@@ -1,0 +1,1 @@
+Browser document parsers packaged locally. pdfjs-dist 6.4.299 (Apache-2.0); mammoth 1.13.0 (BSD-2-Clause); SheetJS Community Edition 0.20.3 (Apache-2.0). Original licenses accompany these files. Files are loaded only when an import format needs them.

@@ -1,0 +1,14 @@
+Local photo search dependencies bundled with OPAC AI Assistant 1.3.0
+
+- Tesseract.js 7.0.0 and tesseract.js-core 7.0.0: Apache-2.0.
+  Sources: https://github.com/naptha/tesseract.js and
+  https://github.com/naptha/tesseract.js-core
+  License copies and minified bundle notices are in this directory.
+- ZXing JS library 0.22.0: Apache-2.0.
+  Source: https://github.com/zxing-js/library
+  License copy: LICENSE-zxing.txt
+- eng.traineddata.gz is the gzip-compressed English model from
+  https://github.com/tesseract-ocr/tessdata_fast (Apache-2.0).
+
+These files are served by the Koha plugin only when a patron chooses photo
+search. No external CDN or Puter account is required at runtime.

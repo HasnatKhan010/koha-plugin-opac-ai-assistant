@@ -1,0 +1,758 @@
+/* =========================================================
+   KOHA OPAC ASSISTANT — REUSABLE COMPONENTS
+   All class-based, reusable UI pieces.
+   No ID selectors. No widget-shell layout.
+========================================================= */
+
+/* --koha-chat------ MESSAGES --koha-chat------ */
+
+#koha-chat-window .message {
+  display: flex;
+  margin-top: 16px;
+  animation: fadeMessage 0.2s ease-out both;
+}
+
+#koha-chat-window .message:first-child {
+  margin-top: 0;
+}
+
+#koha-chat-window .message.user {
+  justify-content: flex-end;
+}
+
+#koha-chat-window .message.bot {
+  justify-content: flex-start;
+}
+
+#koha-chat-window .bubble {
+  max-width: 82%;
+  padding: 11px 15px;
+  border-radius: var(--koha-chat-radius);
+  font-size: 13.5px;
+  line-height: 1.65;
+  word-break: break-word;
+}
+
+/* User bubble — the brand fill. text-inverse rather than a literal white, so
+   dark mode (where the fill becomes light blue) gets dark text instead of
+   white-on-light-blue at 2.2:1. */
+#koha-chat-window .user .bubble {
+  background: var(--koha-chat-gradient);
+  color: var(--koha-chat-text-inverse);
+  border-bottom-right-radius: 4px;
+  box-shadow: var(--koha-chat-shadow-sm);
+  border: none;
+}
+
+/* Bot bubble — flat surface, one visible border. Was a translucent background
+   plus backdrop-filter, which meant a blur repaint per bubble per scroll frame
+   in a list that grows all session. */
+#koha-chat-window .bot .bubble {
+  background: var(--koha-chat-bg-subtle);
+  border: 1px solid var(--koha-chat-border);
+  color: var(--koha-chat-text);
+  border-bottom-left-radius: 4px;
+}
+
+#koha-chat-window .message-time {
+  margin-top: 5px;
+  font-size: 10.5px;
+  color: var(--koha-chat-text-muted);
+}
+
+/* On the brand fill in light mode this is white at 55%; in dark mode the fill is
+   light so it must go the other way. currentColor at 70% opacity follows the
+   bubble's own text colour in both. */
+#koha-chat-window .user .message-time {
+  color: currentColor;
+  opacity: 0.75;
+  text-align: right;
+}
+
+#koha-chat-window .speaker-btn {
+  background: none;
+  border: none;
+  color: var(--koha-chat-text-muted);
+  cursor: pointer;
+  padding: 2px 4px;
+  margin-left: 6px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+#koha-chat-window .speaker-btn:hover {
+  background: var(--koha-chat-bg-subtle);
+  color: var(--koha-chat-primary);
+}
+
+#koha-chat-window .speaker-btn svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* --koha-chat------ BUBBLE CONTENT --koha-chat------ */
+
+#koha-chat-window .bubble h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--koha-chat-text);
+  margin-bottom: 10px;
+}
+
+#koha-chat-window .bubble a {
+  color: var(--koha-chat-primary);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+#koha-chat-window .bubble a:hover {
+  text-decoration: underline;
+}
+
+#koha-chat-window .bubble table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+#koha-chat-window .bubble td {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--koha-chat-border);
+  font-size: 13px;
+  color: var(--koha-chat-text);
+}
+
+#koha-chat-window .bubble pre {
+  background: var(--koha-chat-secondary);
+  /* Always light-on-dark: --koha-chat-secondary is a near-black in both themes,
+     so this is the one place a literal white is correct. */
+  color: #FFFFFF;
+  padding: 14px;
+  border-radius: var(--koha-chat-radius-sm);
+  overflow: auto;
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+#koha-chat-window .bubble code {
+  font-family: var(--koha-chat-font-mono);
+  font-size: 12.5px;
+}
+
+/* --koha-chat------ WELCOME CARD --koha-chat------ */
+
+#koha-chat-window .welcome-card {
+  background: var(--koha-chat-bg-subtle);
+  border-radius: var(--koha-chat-radius-lg);
+  padding: 18px 20px;
+  border: 1px solid var(--koha-chat-border);
+  animation: fadeIn 0.3s ease both;
+}
+
+#koha-chat-window .welcome-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--koha-chat-radius);
+  background: var(--koha-chat-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+#koha-chat-window .welcome-icon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--koha-chat-primary);
+}
+
+#koha-chat-window .welcome-icon img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  border-radius: var(--koha-chat-radius);
+}
+
+#koha-chat-window .welcome-card h2 {
+  font-size: 17px;
+  font-weight: 650;
+  color: var(--koha-chat-text);
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+
+#koha-chat-window .welcome-card p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--koha-chat-text-secondary);
+  margin-bottom: 20px;
+}
+
+#koha-chat-window .welcome-section-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--koha-chat-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+#koha-chat-window .welcome-tips {
+  font-size: 12.5px;
+  color: var(--koha-chat-text-secondary);
+  line-height: 1.7;
+  padding: 12px 14px;
+  background: var(--koha-chat-bg-subtle);
+  border-radius: 10px;
+  margin-top: 16px;
+  border: 1px solid var(--koha-chat-border);
+}
+
+#koha-chat-window .welcome-tips strong {
+  color: var(--koha-chat-text);
+  font-weight: 600;
+}
+
+/* --koha-chat------ QUICK ACTIONS --koha-chat------ */
+
+#koha-chat-window .quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#koha-chat-window .quick-btn {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 15px;
+  margin: 0 !important;
+  width: auto !important;
+  border-radius: var(--koha-chat-radius-full);
+  background: var(--koha-chat-bg-elevated);
+  border: 1px solid var(--koha-chat-border-strong);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--koha-chat-text);
+  cursor: pointer;
+  transition: background var(--koha-chat-transition),
+              border-color var(--koha-chat-transition),
+              color var(--koha-chat-transition);
+  white-space: nowrap;
+}
+
+/* Hover tints rather than inverting to the full brand gradient. Five buttons
+   all flipping to saturated blue on hover was the loudest interaction in the
+   widget; the tinted state still reads as hoverable and keeps the label at
+   5.9:1 instead of relying on white-on-gradient. */
+#koha-chat-window .quick-btn:hover {
+  background: var(--koha-chat-primary-light);
+  border-color: var(--koha-chat-primary);
+  color: var(--koha-chat-primary-hover);
+}
+
+#koha-chat-window .quick-btn:focus-visible {
+  outline: none;
+  border-color: var(--koha-chat-primary);
+  box-shadow: var(--koha-chat-shadow-glow);
+}
+
+#koha-chat-window .quick-btn svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* --koha-chat------ BOOK CARDS --koha-chat------ */
+
+#koha-chat-window .books-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#koha-chat-window .book-card {
+  /* Opaque, not rgba(255,255,255,.7) with a backdrop-filter. The translucent
+     version took its colour from whatever the library's OPAC theme put behind
+     it, so the same card rendered a different shade on every install, and
+     backdrop-filter is a repaint-per-scroll cost for a list of 20. */
+  background: var(--koha-chat-bg-elevated);
+  border: 1px solid var(--koha-chat-border);
+  border-radius: var(--koha-chat-radius-lg);
+  padding: 14px;
+  transition: border-color var(--koha-chat-transition),
+              box-shadow var(--koha-chat-transition);
+  animation: fadeIn 0.3s ease both;
+}
+
+#koha-chat-window .book-card:hover {
+  border-color: var(--koha-chat-border-strong);
+  box-shadow: var(--koha-chat-shadow-md);
+}
+
+#koha-chat-window .book-header {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+/* Cover 60x88, down from 80x120. In a 380px-wide panel the old size took a
+   fifth of the card width for a thumbnail, squeezing the title into a narrow
+   column; Search.pm now also omits the element entirely for records with no
+   copies, so a missing cover is not a large grey rectangle. */
+#koha-chat-window .book-cover {
+  position: relative;
+  width: 60px;
+  height: 88px;
+  border-radius: var(--koha-chat-radius-sm);
+  background-color: var(--koha-chat-bg-subtle);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238D9AAA'%3E%3Cpath d='M4 19v-14c0-1.1.9-2 2-2h12c1.1 0 2 .9 2 2v14c0 1.1-.9 2-2 2h-14v-2zm2-14v14h12v-14h-12zm4 2h6v2h-6v-2zm0 4h6v2h-6v-2zm0 4h4v2h-4v-2z'/%3E%3C/svg%3E");
+  background-size: 26px;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid var(--koha-chat-border);
+}
+
+#koha-chat-window .book-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+  z-index: 1;
+}
+
+#koha-chat-window .book-cover.has-loaded-img::after {
+  display: none;
+}
+
+#koha-chat-window .book-cover img {
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+  position: relative;
+  z-index: 2;
+  /* Track the container rather than repeating its pixel size. The two were
+     hardcoded separately, so responsive.css shrinking .book-cover left the img
+     at its desktop size and the cover was silently cropped on tablets. */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#koha-chat-window .book-cover img.loaded {
+  opacity: 1;
+}
+
+#koha-chat-window .book-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#koha-chat-window .book-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--koha-chat-text);
+  line-height: 1.35;
+  margin-bottom: 3px;
+  /* 3 lines, not 2. Real catalogue titles carry subtitles and statements of
+     responsibility -- "Database System Concepts / Abraham Silberschatz, Henry
+     F. Korth, S. Sudarshan" -- and clamping at 2 cut them mid-word. Long words
+     (ISBNs, URLs in 245$a) get broken rather than overflowing the card. */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  letter-spacing: -0.01em;
+}
+
+#koha-chat-window .book-author {
+  font-size: 12px;
+  color: var(--koha-chat-text-secondary);
+  margin-bottom: 8px;
+  font-weight: 500;
+  overflow-wrap: break-word;
+}
+
+#koha-chat-window .book-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+#koha-chat-window .meta-row {
+  display: flex;
+  align-items: baseline;
+  font-size: 11.5px;
+  line-height: 1.45;
+  gap: 6px;
+}
+
+/* Search.pm no longer emits a ":" after the label -- the uppercase letter-spaced
+   treatment already reads as a label, and the colon collided with the tracking. */
+#koha-chat-window .meta-row strong {
+  color: var(--koha-chat-text-muted);
+  font-weight: 600;
+  min-width: 54px;
+  flex-shrink: 0;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+#koha-chat-window .meta-row span {
+  color: var(--koha-chat-text-secondary);
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+/* --koha-chat------ STATUS BAR & BADGES --koha-chat------ */
+
+#koha-chat-window .status-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--koha-chat-border);
+}
+
+#koha-chat-window .badge {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;      /* was width:max-content inline on the element */
+  margin-bottom: 6px;
+  padding: 3px 9px;
+  border-radius: var(--koha-chat-radius-sm);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: var(--koha-chat-neutral-bg);
+  color: var(--koha-chat-text-secondary);
+}
+
+/* Search.pm emits these classes. It used to emit
+   style="background:#10B981;color:white" inline, which is 2.5:1 and failed
+   WCAG AA, and forced the [style*=...] attribute selectors below to claw the
+   colour back with !important. The class is now the only source of truth, so no
+   !important is needed and dark mode can override it through the tokens. */
+#koha-chat-window .badge.badge-available,
+#koha-chat-window .badge.available {
+  background: var(--koha-chat-success-bg);
+  color: var(--koha-chat-success-text);
+}
+
+#koha-chat-window .badge.badge-checked-out,
+#koha-chat-window .badge.unavailable,
+#koha-chat-window .badge.checked {
+  background: var(--koha-chat-danger-bg);
+  color: var(--koha-chat-danger-text);
+}
+
+/* A record with neither visible copies nor an online link gets a neutral chip. */
+#koha-chat-window .badge.badge-enquire {
+  background: var(--koha-chat-neutral-bg);
+  color: var(--koha-chat-neutral-text);
+}
+
+#koha-chat-window .badge.badge-online {
+  background: var(--koha-chat-primary-light);
+  color: var(--koha-chat-primary);
+}
+
+#koha-chat-window .badge.reserved {
+  background: var(--koha-chat-warning-bg);
+  color: var(--koha-chat-warning-text);
+}
+
+#koha-chat-window .copies-badge {
+  background: var(--koha-chat-bg-subtle);
+  color: var(--koha-chat-text-secondary);
+}
+
+/* --koha-chat------ TYPING INDICATOR --koha-chat------ */
+
+#koha-chat-window .typing {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 18px;
+}
+
+#koha-chat-window .typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--koha-chat-text-muted);
+  animation: typing 1.2s ease-in-out infinite;
+}
+
+#koha-chat-window .typing span:nth-child(2) { animation-delay: 0.15s; }
+#koha-chat-window .typing span:nth-child(3) { animation-delay: 0.30s; }
+
+/* --koha-chat------ LOADING SKELETON --koha-chat------ */
+
+#koha-chat-window .loading-card {
+  padding: 16px;
+  background: var(--koha-chat-bg-elevated);
+  border-radius: var(--koha-chat-radius-lg);
+  border: 1px solid var(--koha-chat-border);
+}
+
+#koha-chat-window .loading-line {
+  height: 10px;
+  border-radius: var(--koha-chat-radius-full);
+  background: linear-gradient(
+    90deg,
+    var(--koha-chat-bg-subtle) 25%,
+    var(--koha-chat-bg-inset)  50%,
+    var(--koha-chat-bg-subtle) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s linear infinite;
+  margin: 8px 0;
+}
+
+/* --koha-chat------ EMPTY STATE --koha-chat------ */
+
+#koha-chat-window .empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 20px;
+  text-align: center;
+}
+
+#koha-chat-window .empty-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: var(--koha-chat-bg-subtle);
+  border: 1px solid var(--koha-chat-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+#koha-chat-window .empty-icon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--koha-chat-text-muted);
+}
+
+#koha-chat-window .empty-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--koha-chat-text);
+}
+
+#koha-chat-window .empty-text {
+  font-size: 13px;
+  color: var(--koha-chat-text-secondary);
+  line-height: 1.6;
+  max-width: 240px;
+}
+
+/* --koha-chat------ SUGGESTIONS DROPDOWN --koha-chat------ */
+
+#koha-chat-window .suggestions-dropdown {
+  position: absolute;
+  bottom: 100%;
+  left: 16px;
+  right: 16px;
+  background: var(--koha-chat-bg-elevated);
+  border: 1px solid var(--koha-chat-border-strong);
+  border-radius: var(--koha-chat-radius);
+  box-shadow: var(--koha-chat-shadow-lg);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  margin-bottom: 6px;
+  animation: scaleIn 0.15s ease-out;
+}
+
+/* scaleIn is defined in animations.css; the duplicate that used to sit here is
+   removed. */
+
+#koha-chat-window .suggestion-item {
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--koha-chat-text);
+  border-bottom: 1px solid var(--koha-chat-border);
+  transition: background var(--koha-chat-transition-fast);
+}
+
+#koha-chat-window .suggestion-item:last-child {
+  border-bottom: none;
+}
+
+#koha-chat-window .suggestion-item:hover {
+  background: var(--koha-chat-primary-light);
+  color: var(--koha-chat-primary-hover);
+}
+
+/* --koha-chat------ RESULT ACTIONS --koha-chat------ */
+
+#koha-chat-window .result-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+/* Primary button */
+#koha-chat-window .result-btn {
+  padding: 8px 15px;
+  border-radius: var(--koha-chat-radius-sm);
+  background: var(--koha-chat-primary);
+  color: var(--koha-chat-text-inverse);
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: background var(--koha-chat-transition-fast),
+              border-color var(--koha-chat-transition-fast),
+              box-shadow var(--koha-chat-transition-fast);
+  cursor: pointer;
+  border: none;
+  letter-spacing: 0.01em;
+}
+
+#koha-chat-window .result-btn:hover {
+  background: var(--koha-chat-primary-hover);
+  box-shadow: var(--koha-chat-shadow-sm);
+}
+
+#koha-chat-window .result-btn:active {
+  transform: scale(0.97);
+}
+
+#koha-chat-window .result-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--koha-chat-shadow-glow);
+}
+
+/* Secondary button — this is the "View Details" link on every result card, so
+   it is the most-clicked control in the widget and gets a visible resting
+   border rather than relying on hover to reveal itself. */
+#koha-chat-window .result-btn.secondary {
+  background: var(--koha-chat-bg-elevated);
+  color: var(--koha-chat-primary);
+  border: 1px solid var(--koha-chat-border-strong);
+}
+
+#koha-chat-window .result-btn.secondary:hover {
+  background: var(--koha-chat-primary-light);
+  border-color: var(--koha-chat-primary);
+  color: var(--koha-chat-primary-hover);
+}
+
+#koha-chat-window .result-btn:disabled,
+#koha-chat-window .result-btn.secondary:disabled {
+  background: var(--koha-chat-bg-subtle);
+  color: var(--koha-chat-text-muted);
+  border-color: var(--koha-chat-border);
+  cursor: default;
+}
+
+/* --koha-chat------ NOTIFICATIONS --koha-chat------ */
+
+#koha-chat-window .notification {
+  padding: 12px 14px;
+  border-radius: var(--koha-chat-radius-sm);
+  margin: 12px 0;
+  font-size: 13px;
+  line-height: 1.5;
+  border: 1px solid transparent;
+}
+
+/* currentColor at low alpha for the border instead of a hardcoded light tint:
+   #BBF7D0 / #FDE68A / #FECACA were all light-mode values that turned into
+   near-white hairlines on the dark chips. */
+#koha-chat-window .notification.success {
+  background: var(--koha-chat-success-bg);
+  color: var(--koha-chat-success-text);
+  border-color: currentColor;
+  border-color: color-mix(in srgb, currentColor 30%, transparent);
+}
+
+#koha-chat-window .notification.warning {
+  background: var(--koha-chat-warning-bg);
+  color: var(--koha-chat-warning-text);
+  border-color: currentColor;
+  border-color: color-mix(in srgb, currentColor 30%, transparent);
+}
+
+#koha-chat-window .notification.error {
+  background: var(--koha-chat-danger-bg);
+  color: var(--koha-chat-danger-text);
+  border-color: currentColor;
+  border-color: color-mix(in srgb, currentColor 30%, transparent);
+}
+
+/* --koha-chat------ DIVIDER --koha-chat------ */
+
+#koha-chat-window .divider,
+#koha-chat-window .book-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--koha-chat-border);
+  margin: 14px 0;
+}
+
+/* --koha-chat------ FOCUS STATES (WCAG AA) --koha-chat------ */
+
+#koha-chat-window button:focus-visible,
+#koha-chat-window input:focus-visible {
+  outline: 2px solid var(--koha-chat-primary);
+  outline-offset: 2px;
+  box-shadow: var(--koha-chat-shadow-glow);
+}
+
+/* --koha-chat------ UTILS --koha-chat------ */
+
+/* The accent word in the welcome heading (the library's own name).
+   -webkit-text-fill-color: transparent was applied unconditionally, so any
+   engine without background-clip:text rendered the library's name as invisible
+   text — the worst possible failure for a decorative effect. The colour is set
+   first as the fallback, and the transparent fill only inside @supports. */
+#koha-chat-window .gradient-text {
+  color: var(--koha-chat-primary);
+}
+
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  #koha-chat-window .gradient-text {
+    background: var(--koha-chat-gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+/* Forced-colours mode (Windows High Contrast) discards background-clip:text and
+   would leave the name unpainted again; opt the effect out there entirely. */
+@media (forced-colors: active) {
+  #koha-chat-window .gradient-text {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: CanvasText;
+  }
+}
